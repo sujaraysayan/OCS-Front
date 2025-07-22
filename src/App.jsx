@@ -4,6 +4,7 @@ import Login from './auth/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import TraceabilityReport from './pages/traceability';
+import CMC from './pages/stationStandard/cmc';
 import ProtectedRoute from './auth/ProtectedRoute';
 import AppLayout from "./layout/AppLayout";
 
@@ -21,6 +22,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/traceability" element={<TraceabilityReport />} />
+              <Route path="/cmc" element={<CMC />} />
             </Route>
           </Route>
         </Routes>

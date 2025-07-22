@@ -5,8 +5,11 @@ import Input from "../form/input/InputField";
 import Label from "../form/Label";
 import Button from "../../components/ui/button/Button";
 import { SearchIcon } from "../../icons";
+import React, { useState } from 'react';
 
 export default function OrderSearch({child}) {
+  const [workorder, setWorkorder] = useState('');
+
   return (
     <>
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
@@ -16,9 +19,9 @@ export default function OrderSearch({child}) {
                     <div className="basis-1/3">
                         <Input
                             type="text"
-                            value=""
                             placeholder="Enter Order ID or Serial Number"
-
+                            value={workorder}
+                            onChange={(e) => setWorkorder(e.target.value)}
                         />
                     </div>
                     <div className="basis-1/7 ml-4 flex items-end">
