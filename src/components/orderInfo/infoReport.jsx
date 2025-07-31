@@ -6,7 +6,7 @@
 // import Button from "../../components/ui/button/Button";
 // import { SearchIcon } from "../../icons";
 
-export default function InfoReport() {
+export default function InfoReport({ data }) {
   return (
     <>
     <div>
@@ -19,7 +19,7 @@ export default function InfoReport() {
                     Workorder Number
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                    Musharof
+                    {data?.workorder || "-"}
                 </p>
             </div>
 
@@ -28,7 +28,7 @@ export default function InfoReport() {
                     Project Name
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                    Chowdhury
+                    {data?.project || "-"}
                 </p>
             </div>
 
@@ -37,7 +37,7 @@ export default function InfoReport() {
                     Description
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                    5
+                    {data?.description || "-"}
                 </p>
             </div>
 
@@ -46,7 +46,7 @@ export default function InfoReport() {
                     WO Quantity
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                    5
+                    {data?.qty || "-"}
                 </p>
             </div>
         </div>

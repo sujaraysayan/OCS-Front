@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
+// import 'ag-grid-community/styles/ag-theme-alpine.css'; // ถ้าจะใช้ light mode
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { DownloadIcon } from "../../icons";
+import Label from "../form/Label";
 import Button from "../ui/button/Button";
-import api from '../../api/axios'; // Adjust the import based on your project structure
 
 // 
 import { AllCommunityModule, ModuleRegistry, provideGlobalGridOptions } from 'ag-grid-community';
+import { data } from "react-router-dom";
 ModuleRegistry.registerModules([AllCommunityModule]);
 provideGlobalGridOptions({ theme: "legacy" });
 
-const TableTraceability = ({ orderData }) => {
+const TableStationStd = ({ orderData , serialList }) => {
   const [rowData, setRowData] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [error, setError] = useState(null);
-  console.log("orderData in table ", orderData);
   useEffect(() => {
     // You can use a context or localStorage instead of this
     const html = document.documentElement;
@@ -23,48 +24,15 @@ const TableTraceability = ({ orderData }) => {
   }, []);
 
   const [columnDefs] = useState([
-    { headerName: "Serial Number", field: "sn",sort: "asc", sortable: true, filter: true, floatingFilter: true},
+    { headerName: "Serial Number", field: "sn", sortable: true, filter: true, floatingFilter: true},
     { headerName: "Workorder", field: "wo", sortable: true, filter: true },
     { headerName: "Prev Station", field: "prevStation", sortable: true, filter: true },
     { headerName: "Current Station", field: "currentStation", sortable: true, filter: true },
     { headerName: "Next Station", field: "nextStation", sortable: true, filter: true },
-    { headerName: "Last Update", field: "lastUpdate", sortable: true, filter: true },
+    { headerName: "Create Date", field: "cdate", sortable: true, filter: true, sort: "desc" },
     { headerName: "Status", field: "status", sortable: true, filter: true },
   ]);
 
-  useEffect(() => {
-    const fetchSerialNumbers = async () => {
-      try {
-        const response = await api.get(`/main/serialnumber/?search=${encodeURIComponent(orderData?.workorder || '')}`);
-        console.log('API serial number response ---:', response.data);
-        const data_response = response.data; // <-- FIXED
-        
-        const formatted = data_response.map(item => ({
-          sn: item.sn,
-          wo: item.work_order,
-          prevStation : item.prev_station,
-          currentStation: item.current_station,
-          nextStation: item.next_station,
-          status: item.status,
-          lastUpdate: item.last_update
-        }));
-
-        setRowData(formatted);
-      } catch (error) {
-        console.error('Error fetching serial numbers:', error);
-        if (error.response && error.response.status === 404) {
-          setError('Workorder not found.');
-        } else {
-          setError('Something went wrong.');
-        }
-      }
-    };
-    
-
-    if (orderData?.workorder) {
-      fetchSerialNumbers();
-    }
-  }, [orderData]);
   // Theme detection for dark mode
   useEffect(() => {
     const html = document.documentElement;
@@ -76,6 +44,12 @@ const TableTraceability = ({ orderData }) => {
     updateTheme(); // Initial call
     return () => observer.disconnect();
   }, []);
+
+  // update rowData in table when orderData changes or serialList updates
+  useEffect(() => {
+    setRowData(serialList); // update table when parent passes new list
+  }, [serialList]);
+
   const quickFilterText = 'new filter text';
 
   return (
@@ -101,4 +75,4 @@ const TableTraceability = ({ orderData }) => {
     );
 };
 
-export default TableTraceability;
+export default TableStationStd;
