@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import 'ag-grid-community/styles/ag-theme-quartz.css';
-import { DownloadIcon } from "../../icons";
+import { DownloadIcon } from "@/icons";
 import Button from "../ui/button/Button";
 import apiHelper from '@/api/apiHelper'; // Adjust the import based on your project structure
 import { endpoints } from "@/api/endpoints"; 

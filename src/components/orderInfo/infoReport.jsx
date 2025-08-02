@@ -4,7 +4,7 @@
 // import Input from "../form/input/InputField";
 // import Label from "../form/Label";
 // import Button from "../../components/ui/button/Button";
-// import { SearchIcon } from "../../icons";
+// import { SearchIcon } from "@/icons";
 
 export default function InfoReport({ data }) {
   return (

@@ -3,7 +3,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-enterprise";
 import 'ag-grid-community/styles/ag-theme-quartz.css';
-import { DownloadIcon,  XIcon, } from "../../icons";
+import { DownloadIcon,  XIcon, } from "@/icons";
 import Label from "../form/Label";
 import { motion, AnimatePresence } from "motion/react";
 import Button  from "@/components/ui/seraui/button"

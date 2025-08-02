@@ -1,6 +1,6 @@
 import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
-import { SearchIcon } from "../../icons";
+import { SearchIcon } from "@/icons";
 import React, { useState } from 'react';
 import apiHelper from '@/api/apiHelper'; 
 import { endpoints } from "@/api/endpoints";
