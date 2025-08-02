@@ -2,13 +2,14 @@
 import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
 import React, { useState , useEffect } from 'react';
-import api from '../../api/axios';
+import apiHelper from '@/api/apiHelper';
+import { endpoints } from "@/api/endpoints";
 
 export default function SerialScan({orderData , serialCount, onSerialCreated }) {
   const [serialNo, setSerialNo] = useState('');
   const [error, setError] = useState(null);
-  const isDisabled = serialCount >= orderData?.qty;
-
+  const isDisabled = orderData ? serialCount >= orderData.qty : true;
+ 
   // show message if workorder is full
   useEffect(() => {
     if (orderData?.qty !== undefined && serialCount >= orderData.qty) {
@@ -20,7 +21,6 @@ export default function SerialScan({orderData , serialCount, onSerialCreated }) 
 
   // This function will be called when the form is submitted
   const handleSubmit = async (e) => {
-    console.log('Order Data:', orderData);
     e.preventDefault();
     setError(null);
     try {
@@ -28,7 +28,8 @@ export default function SerialScan({orderData , serialCount, onSerialCreated }) 
         "sn": serialNo,
         "work_order": orderData.workorder
       }
-      const response = await api.post(`/main/serialnumber/`, data_body);
+
+      const response = await apiHelper.post(`${endpoints.serialnumber()}`, data_body);
       const data_response = response.data; // <-- FIXED
       setSerialNo('');
       // Handle the API response (e.g., pass data to parent, set state, etc.)

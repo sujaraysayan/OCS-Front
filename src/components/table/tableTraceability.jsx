@@ -4,7 +4,8 @@ import "ag-grid-community/styles/ag-grid.css";
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { DownloadIcon } from "../../icons";
 import Button from "../ui/button/Button";
-import api from '../../api/axios'; // Adjust the import based on your project structure
+import apiHelper from '@/api/apiHelper'; // Adjust the import based on your project structure
+import { endpoints } from "@/api/endpoints"; 
 
 // 
 import { AllCommunityModule, ModuleRegistry, provideGlobalGridOptions } from 'ag-grid-community';
@@ -15,7 +16,6 @@ const TableTraceability = ({ orderData }) => {
   const [rowData, setRowData] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [error, setError] = useState(null);
-  console.log("orderData in table ", orderData);
   useEffect(() => {
     // You can use a context or localStorage instead of this
     const html = document.documentElement;
@@ -35,8 +35,7 @@ const TableTraceability = ({ orderData }) => {
   useEffect(() => {
     const fetchSerialNumbers = async () => {
       try {
-        const response = await api.get(`/main/serialnumber/?search=${encodeURIComponent(orderData?.workorder || '')}`);
-        console.log('API serial number response ---:', response.data);
+        const response = await apiHelper.get(`${endpoints.serialnumber()}?search=${encodeURIComponent(orderData?.workorder || '')}`);
         const data_response = response.data; // <-- FIXED
         
         const formatted = data_response.map(item => ({

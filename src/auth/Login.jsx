@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import api from '../api/axios';
+import axios from 'axios';
+import { endpoints } from "@/api/endpoints";
+
 import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
@@ -13,7 +15,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/api/token/', {
+      const response = await axios.post(endpoints.login(), {
         username,
         password
       });
@@ -47,7 +49,7 @@ function Login() {
             <input 
               type="text"
               value={username}
-              onChange={e => {setUsername(e.target.value); console.log(e.target.value);}}
+              onChange={e => {setUsername(e.target.value);}}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
               placeholder="Employee number"
               required

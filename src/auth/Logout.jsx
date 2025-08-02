@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useCallback } from "react"
-import api from '../api/axios';
+import axios from 'axios';
+import { endpoints } from "@/api/endpoints";
 
 const Logout = () => {
   const navigate = useNavigate()
@@ -9,7 +10,7 @@ const Logout = () => {
     const refreshToken = localStorage.getItem("refresh")
     if (refreshToken) {
       try {
-        await api.post('/api/token/', {
+        await axios.post(endpoints.blacklist(), {
             refresh: refreshToken
         });
       } catch (error) {

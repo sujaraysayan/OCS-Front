@@ -2,7 +2,8 @@ import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
 import { SearchIcon } from "../../icons";
 import React, { useState } from 'react';
-import api from '../../api/axios'; 
+import apiHelper from '@/api/apiHelper'; 
+import { endpoints } from "@/api/endpoints";
 
 export default function OrderSearch({ child , onDataChange , serialCount='-' }) {
   const [workorder, setWorkorder] = useState('');
@@ -13,8 +14,8 @@ export default function OrderSearch({ child , onDataChange , serialCount='-' }) 
     e.preventDefault();
     setError(null);
     try {
-      const response = await api.get(`/main/workorder/?search=${encodeURIComponent(workorder)}`);
-      const data = response.data; 
+      const response = await apiHelper.get(`${endpoints.workorder()}?search=${encodeURIComponent(workorder)}`);
+      const data = response.data;
 
       setData(data);
       onDataChange(data);
