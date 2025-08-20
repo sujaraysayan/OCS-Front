@@ -60,10 +60,11 @@ const navItems = [
 const othersItems = [
   {
     icon: <PieChartIcon />,
-    name: "Charts",
+    name: "Project Settings",
     subItems: [
-      { name: "Line Chart", path: "/line-chart", pro: false },
-      { name: "Bar Chart", path: "/bar-chart", pro: false },
+      { name: "Project Master", path: "/project-master", pro: false },
+      { name: "Project Routing", path: "/project-routing", pro: false },
+      { name: "Workorder Routing", path: "/workorder-routing", pro: false },
     ],
   },
   {

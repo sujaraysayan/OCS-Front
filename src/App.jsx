@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import TraceabilityReport from './pages/traceability';
 import CMC from './pages/stationStandard/cmc';
+import ProjectMaster from './pages/projectSettings/projectMaster';
 import ProtectedRoute from './auth/ProtectedRoute';
 import AppLayout from "./layout/AppLayout";
 
@@ -23,6 +24,9 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/traceability" element={<TraceabilityReport />} />
               <Route path="/cmc" element={<CMC />} />
+              <Route path="/project-master" element={<ProjectMaster />} />
+              {/* <Route path="/project-routing" element={<ProjectRouting />} /> */}
+              {/* <Route path="/workorder-routing" element={<WorkorderRouting />} /> */}
             </Route>
           </Route>
         </Routes>
