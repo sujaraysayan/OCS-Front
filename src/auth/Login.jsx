@@ -19,7 +19,7 @@ function Login() {
       localStorage.setItem('refresh', response.data.refresh);
       navigate('/'); // ไปหน้า home
     } catch (err) {
-      setError('Invalid username or password');
+      setError(err);
     }
   };
 
