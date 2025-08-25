@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { endpoints } from "@/api/endpoints";
 
-const api = axios.create({
+const apiHelper = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
 });
 
@@ -10,7 +11,7 @@ async function refreshAccessToken() {
     const refreshToken = localStorage.getItem('refresh');
     if (!refreshToken) throw new Error('No refresh token');
 
-    const response = await axios.post(`${api.defaults.baseURL}/api/token/refresh/`, {
+    const response = await axios.post(endpoints.refresh(), {
       refresh: refreshToken,
     });
     localStorage.setItem('access', response.data.access);
@@ -23,7 +24,7 @@ async function refreshAccessToken() {
   }
 }
 
-api.interceptors.request.use(config => {
+apiHelper.interceptors.request.use(config => {
   const token = localStorage.getItem('access');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -32,7 +33,7 @@ api.interceptors.request.use(config => {
 });
 
 // Interceptor ตรวจจับ response error 401 และลอง refresh token
-api.interceptors.response.use(
+apiHelper.interceptors.response.use(
   response => response, // ปกติให้ผ่านเลย
   async error => {
     const originalRequest = error.config;
@@ -50,7 +51,7 @@ api.interceptors.response.use(
 
         // อัพเดต header ด้วย token ใหม่ แล้ว retry request เดิม
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
+        return apiHelper(originalRequest);
       } catch (refreshError) {
         // ถ้า refresh ไม่สำเร็จ อาจจะ logout หรือแจ้งผู้ใช้
         return Promise.reject(refreshError);
@@ -60,4 +61,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default apiHelper;

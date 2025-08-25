@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
-import api from '../api/axios';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { endpoints } from "@/api/endpoints";
+
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/api/token/', {
+      const response = await axios.post(endpoints.login(), {
         username,
         password
       });
       localStorage.setItem('access', response.data.access);
       localStorage.setItem('refresh', response.data.refresh);
-      navigate('/'); // ไปหน้า home
+
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err);
     }
@@ -44,7 +49,7 @@ function Login() {
             <input 
               type="text"
               value={username}
-              onChange={e => {setUsername(e.target.value); console.log(e.target.value);}}
+              onChange={e => {setUsername(e.target.value);}}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
               placeholder="Employee number"
               required

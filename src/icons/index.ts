@@ -1,6 +1,7 @@
 import { ReactComponent as PlusIcon } from "./plus.svg?react";
 import { ReactComponent as CloseIcon } from "./close.svg?react";
 import { ReactComponent as BoxIcon } from "./box.svg?react";
+import { ReactComponent as SearchIcon } from "./search.svg?react";
 import { ReactComponent as CheckCircleIcon } from "./check-circle.svg?react";
 import { ReactComponent as AlertIcon } from "./alert.svg?react";
 import { ReactComponent as InfoIcon } from "./info.svg?react";
@@ -54,6 +55,7 @@ import { ReactComponent as ChatIcon } from "./chat.svg?react";
 import { ReactComponent as MoreDotIcon } from "./moredot.svg?react";
 import { ReactComponent as AlertHexaIcon } from "./alert-hexa.svg?react";
 import { ReactComponent as ErrorHexaIcon } from "./info-hexa.svg?react";
+import { ReactComponent as XIcon } from "./x.svg?react";
 
 export {
   ErrorHexaIcon,
@@ -67,6 +69,7 @@ export {
   BoltIcon,
   PlusIcon,
   BoxIcon,
+  SearchIcon,
   CloseIcon,
   CheckCircleIcon,
   AlertIcon,
@@ -112,4 +115,5 @@ export {
   ChatIcon,
   AngleLeftIcon,
   AngleRightIcon,
+  XIcon,
 };
